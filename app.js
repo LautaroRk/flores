@@ -9,7 +9,7 @@ require('dotenv').config();
 // import routes
 const authRoutes = require('./routes/auth');
 const userRoutes = require('./routes/user');
-const categoryRoutes = require('./routes/category');
+const speciesRoutes = require('./routes/species');
 const productRoutes = require('./routes/product');
 
 // app
@@ -30,11 +30,11 @@ app.use( expressValidator() );
 // routes middleware
 app.use("/api", authRoutes);
 app.use("/api", userRoutes);
-app.use("/api", categoryRoutes);
+app.use("/api", speciesRoutes);
 app.use("/api", productRoutes);
 
 const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-    console.log(`Server is running on port ${port}`);
+    console.log(`Servidor corriendo en el puerto ${port}`);
 });

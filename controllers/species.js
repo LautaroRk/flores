@@ -1,23 +1,23 @@
 const _ = require('lodash');
 
-const Category = require('../models/category');
+const Species = require('../models/species');
 const { errorHandler } = require('../helpers/dbErrorHandler');
 
-exports.categoryById = (req, res, next, id) => {
-    Category.findById(id, (err, category) => {
-        if ( err || !category ) {
+exports.speciesById = (req, res, next, id) => {
+    Species.findById(id, (err, species) => {
+        if ( err || !species ) {
             res.status(400).json({
-                error: "No se encontró la categoría"
+                error: "No se encontró la especie"
             });
         }
-        req.category = category;
+        req.species = species;
         next();
     });
 }
 
 exports.create = (req, res) => {
-    const category = new Category(req.body);
-    category.save((err, data) => {
+    const species = new Species(req.body);
+    species.save((err, data) => {
         if ( err ) {
             return res.status(400).json({
                 error: errorHandler(err)
@@ -28,13 +28,13 @@ exports.create = (req, res) => {
 }
 
 exports.read = (req, res) => {
-    return res.json( req.category );
+    return res.json( req.species );
 }
 
 exports.update = (req, res) => {
-    const category = req.category;
-    category.name = req.body.name;
-    category.save((err, data) => {
+    const species = req.species;
+    species.name = req.body.name;
+    species.save((err, data) => {
         if (err) {
             return res.json({
                 error: errorHandler(err)
@@ -45,21 +45,21 @@ exports.update = (req, res) => {
 }
 
 exports.remove = (req, res) => {
-    const category = req.category;
-    category.remove( (err, data) => {
+    const species = req.species;
+    species.remove( (err, data) => {
         if (err) {
             return res.status(400).json({
                 error: errorHandler(err)
             });
         }
         res.json({
-            message: `Se eliminó la categoría: ${category.name}`
+            message: `Se eliminó la especie: ${species.name}`
         });
     });
 }
 
 exports.list = (req, res) => {
-    Category.find().exec( (err, data) => {
+    Species.find().exec( (err, data) => {
         if (err) {
             return res.status(400).json({
                 error: errorHandler(err)

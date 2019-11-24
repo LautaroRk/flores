@@ -33,8 +33,8 @@ exports.create = (req, res) => {
         let product = new Product(fields);
 
         // chequeamos que esten completos todos los campos
-        const { name, description, price, category, quantity, shipping } = fields;
-        if ( !name || !description || !price || !category || !quantity || !shipping ) {
+        const { species, variety, price, quantity, is_available } = fields;
+        if ( !species || !variety || !price || !quantity || !is_available ) {
             return res.status(400).json({
                 error: "Debes completar todos los campos"
             });
@@ -74,7 +74,7 @@ exports.remove = (req, res) => {
             });
         }
         res.json({
-            "message": `Se eliminó el producto: ${deletedProduct.name}`
+            "message": `Se eliminó el producto: ${deletedProduct.variety}`
         });
     });
 }
@@ -93,8 +93,8 @@ exports.update = (req, res) => {
         product = _.extend(product, fields);
 
         // chequeamos que esten completos todos los campos
-        const { name, description, price, category, quantity, shipping } = fields;
-        if ( !name || !description || !price || !category || !quantity || !shipping ) {
+        const { species, variety, price, quantity, is_available } = fields;
+        if ( !species || !variety || !price || !quantity || !is_available ) {
             return res.status(400).json({
                 error: "Debes completar todos los campos"
             });
@@ -138,8 +138,8 @@ exports.list = (req, res) => {
     Product.find()
         // le quitamos la propiedad photo
         .select("-photo")
-        // le agregamos las categorias
-        .populate('category')
+        // le agregamos la especies
+        .populate('species')
         .sort([[sortBy, order]])
         .limit(limit)
         .exec( (err, products) => {

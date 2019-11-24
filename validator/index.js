@@ -1,11 +1,11 @@
 exports.userSignupValidator = (req, res, next) => {
-    req.check('name', 'Name is required').notEmpty();
-    req.check('surname', 'Surname is required').notEmpty();
-    req.check('email', 'You must enter a valid email').matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
-    req.check('password', 'Password is required').notEmpty();
+    req.check('name', 'Campo obligatorio').notEmpty();
+    req.check('surname', 'Campo obligatorio').notEmpty();
+    req.check('email', 'Debes ingresar una dirección de email válida').matches(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
+    req.check('password', 'Campo obligatorio').notEmpty();
     req.check('password')
         .isLength({ min: 6 })
-        .withMessage("Password must contain at least 6 characters");
+        .withMessage("La contraseña debe tener al menos 6 caracteres");
     const errors = req.validationErrors();
     if (errors) {
         const firstError = errors[0].msg;
