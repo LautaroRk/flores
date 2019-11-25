@@ -14,7 +14,7 @@ const productSchema = new mongoose.Schema({
         type: String,
         trim: true,
         required: false,
-        unique: 32
+        //unique: 32
     },
     // Variedad/Color
     variety: {
